@@ -5,6 +5,9 @@ import Home from './components/Home'
 import NotFound from './components/NotFound'
 import AddEditTool from './components/AddEditTool'
 import ToolList from './components/ToolsList'
+import KardexsList from './components/KardexsList'
+import ClientsList from './components/ClientsList'
+import AddEditClient from './components/AddEditClient'
 
 function App() {
   return (
@@ -17,6 +20,10 @@ function App() {
           <Route path="/tool/list" element={<ToolList />} />
           <Route path="/tool/add" element={<AddEditTool />} />
           <Route path="/tool/edit/:id" element={<AddEditTool />} />
+          <Route path="/client/list" element={<ClientsList />} />
+          <Route path="/client/add" element={<AddEditClient />} />
+          <Route path="/client/edit/:id" element={<AddEditClient />} />
+          <Route path="kardex/list" element={<KardexsList />}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

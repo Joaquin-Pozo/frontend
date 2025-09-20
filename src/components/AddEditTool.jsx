@@ -11,7 +11,7 @@ const AddEditTool = () => {
   const [replacementCost, setReplacementCost] = useState("");
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
-  const [currentStateId, setCurrentStateId] = useState(""); // guarda solo el id del estado
+  const [currentStateId, setCurrentStateId] = useState(1); // por defecto es Disponible
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -51,10 +51,11 @@ const AddEditTool = () => {
         setReplacementCost(tool.replacementCost);
         setPrice(tool.price);
         setStock(tool.stock);
-        setCurrentStateId(tool.currentState?.id || "");
+        setCurrentStateId(tool.currentState?.id || 1);
       });
     } else {
       setTitle("Nueva Herramienta");
+      setCurrentStateId(1);
     }
   }, [id]);
 
@@ -139,7 +140,6 @@ const AddEditTool = () => {
             value={currentStateId}
             onChange={(e) => setCurrentStateId(e.target.value)}
             variant="standard"
-            defaultValue="1"
             style={{width: "10%"}}
             required
           >

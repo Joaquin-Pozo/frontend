@@ -10,11 +10,20 @@ const getByTool = (toolId) => {
     return httpClient.get(`/api/v1/kardex/tool/${toolId}`);
 }
 
-// obtiene los kardex por rango de fechas
+// obtiene los kardex por rango de fechas en formato yyyy-mm-dd
 const getByDateRange = (start, end) => {
-    httpClient.get("/api/v1/kardex/date-range", {
+    return httpClient.get("/api/v1/kardex/date-range", {
         params: { start, end },
     });
 }
 
-export default { getAll, getByTool, getByDateRange };
+// permite filtrar por fecha, herramienta o ambas
+const filter = (toolId, start, end) => {
+    const params = {};
+    if (toolId) params.toolId = toolId;
+    if (start) params.start = start;
+    if (end) params.end = end;
+    return httpClient.get("/api/v1/kardex/filter", { params });
+}
+
+export default { getAll, getByTool, getByDateRange, filter };
