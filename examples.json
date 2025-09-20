@@ -1,0 +1,65 @@
+[
+  {
+    "toolIdentifier": "SKU-123",
+    "name": "Taladro Bosch",
+    "category": "Eléctrico",
+    "replacementCost": 45000,
+    "price": 3000,
+    "stock": 10,
+    "currentState": { "id": 1 }
+  },
+  {
+    "toolIdentifier": "SKU-456",
+    "name": "Sierra Circular Makita",
+    "category": "Eléctrico",
+    "replacementCost": 75000,
+    "price": 5000,
+    "stock": 5,
+    "currentState": { "id": 1 }
+  },
+  {
+    "toolIdentifier": "SKU-789",
+    "name": "Martillo de Bola",
+    "category": "Manual",
+    "replacementCost": 8000,
+    "price": 500,
+    "stock": 25,
+    "currentState": { "id": 1 }
+  },
+  {
+    "toolIdentifier": "SKU-101",
+    "name": "Nivel Láser Bosch",
+    "category": "Medición",
+    "replacementCost": 90000,
+    "price": 7500,
+    "stock": 3,
+    "currentState": { "id": 1 }
+  },
+  {
+    "toolIdentifier": "SKU-202",
+    "name": "Cinta Métrica de 5m",
+    "category": "Medición",
+    "replacementCost": 3500,
+    "price": 300,
+    "stock": 40,
+    "currentState": { "id": 1 }
+  },
+  {
+    "toolIdentifier": "SKU-303",
+    "name": "Cortacésped Eléctrico",
+    "category": "Jardinería",
+    "replacementCost": 120000,
+    "price": 10000,
+    "stock": 2,
+    "currentState": { "id": 1 }
+  },
+  {
+    "toolIdentifier": "SKU-404",
+    "name": "Pala de Jardín",
+    "category": "Jardinería",
+    "replacementCost": 15000,
+    "price": 1200,
+    "stock": 8,
+    "currentState": { "id": 1 }
+  }
+]
