@@ -6,6 +6,7 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
+import Box from "@mui/material/Box";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
@@ -57,15 +58,17 @@ const ToolList = () => {
   };
 
   return (
-    <TableContainer component={Paper}>
-      <br />
-      <Link to="/tool/add" style={{ textDecoration: "none", marginBottom: "1rem"}}>
-        <Button variant="contained" color="primary" startIcon={<AddIcon />}>
+    <Box>
+      <h3>Herramientas</h3>
+      <Button 
+      variant="contained" 
+      color="primary" 
+      startIcon={<AddIcon />}
+      onClick={() => navigate("/tool/add")}
+      sx={{ mb: 2}}>
           Añadir Herramienta
         </Button>
-      </Link>
-      <br /> 
-      <br />
+    <TableContainer component={Paper}>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -107,6 +110,7 @@ const ToolList = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    </Box>
   );
 };
 

@@ -22,13 +22,19 @@ const KardexsList = () => {
 
   const init = () => {
     kardexService.getAll()
-      .then(res => setKardexs(res.data))
-      .catch(err => console.error("Error cargando kardex:", err));
+      .then((res) => {
+        console.log("Mostrando listado de movimientos del kardex.", res.data);
+        setKardexs(res.data);
+      })
+      .catch(err => console.error("Error cargando los movimientos del kardex", err));
   };
 
   const loadTools = () => {
     toolService.getAll()
-      .then(res => setTools(res.data))
+      .then((res) => {
+        console.log("Mostrando listado de movimiento de herramientas.", res.data);
+        setTools(res.data);
+      })
       .catch(err => console.error("Error cargando herramientas:", err));
   };
 
@@ -38,13 +44,13 @@ const KardexsList = () => {
   }, []);
 
   const handleFilter = () => {
-    // valida: si se pasa solo una fecha mostrar warning? aquí asumimos ok
     kardexService.filter(toolId || null, fromDate || null, toDate || null)
       .then(res => setKardexs(res.data))
       .catch(err => console.error("Error filtrando kardex:", err));
   };
 
   const handleClear = () => {
+    // setea las variables en cero
     setToolId("");
     setFromDate("");
     setToDate("");
@@ -53,7 +59,7 @@ const KardexsList = () => {
 
   return (
     <Box>
-      <h3>Historial Kardex</h3>
+      <h3>Historial de movimientos Kardex</h3>
 
       <Box display="flex" gap={2} mb={2}>
         <TextField

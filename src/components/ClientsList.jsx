@@ -20,8 +20,11 @@ const ClientsList = () => {
 
   const init = () => {
     clientService.getAll()
-      .then(res => setClients(res.data))
-      .catch(err => console.error("Error cargando clientes:", err));
+      .then((res) => {
+        console.log("Mostrando listado de todos los clientes.", res.data);
+        setClients(res.data);
+      })
+      .catch(err => console.error("Error cargando clientes", err));
   };
 
   useEffect(() => {
