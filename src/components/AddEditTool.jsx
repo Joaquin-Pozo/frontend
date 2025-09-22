@@ -60,7 +60,12 @@ const AddEditTool = () => {
   }, [id]);
 
   return (
-    <Box component="form" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+    <Box 
+    component="form" 
+    display="flex" 
+    flexDirection="column" 
+    alignItems="center" 
+    justifyContent="center">
       <h3>{title}</h3>
       <form>
         <FormControl fullWidth>

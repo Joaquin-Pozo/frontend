@@ -10,6 +10,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import HomeIcon from "@mui/icons-material/Home";
+import HandshakeIcon from '@mui/icons-material/Handshake';
 import { useNavigate } from "react-router-dom";
 
 export default function Sidemenu({ open, toggleDrawer }) {
@@ -30,6 +31,13 @@ export default function Sidemenu({ open, toggleDrawer }) {
 
         <Divider />
 
+        <ListItemButton onClick={() => navigate("/client/list")}>
+          <ListItemIcon>
+            <PeopleAltIcon />
+          </ListItemIcon>
+          <ListItemText primary="Clientes" />
+        </ListItemButton>
+
         <ListItemButton onClick={() => navigate("/tool/list")}>
           <ListItemIcon>
             <ConstructionIcon />
@@ -37,11 +45,11 @@ export default function Sidemenu({ open, toggleDrawer }) {
           <ListItemText primary="Herramientas" />
         </ListItemButton>
 
-        <ListItemButton onClick={() => navigate("/client/list")}>
+        <ListItemButton onClick={() => navigate("/loan/list")}>
           <ListItemIcon>
-            <PeopleAltIcon />
+            <HandshakeIcon />
           </ListItemIcon>
-          <ListItemText primary="Clientes" />
+          <ListItemText primary="Préstamos" />
         </ListItemButton>
 
         <ListItemButton onClick={() => navigate("/kardex/list")}>

@@ -8,6 +8,8 @@ import ToolList from './components/ToolsList'
 import KardexsList from './components/KardexsList'
 import ClientsList from './components/ClientsList'
 import AddEditClient from './components/AddEditClient'
+import LoansList from './components/LoansList'
+import AddReturnLoan from './components/AddReturnLoan'
 
 function App() {
   return (
@@ -23,6 +25,9 @@ function App() {
           <Route path="/client/list" element={<ClientsList />} />
           <Route path="/client/add" element={<AddEditClient />} />
           <Route path="/client/edit/:id" element={<AddEditClient />} />
+          <Route path="/loan/list" element={<LoansList />} />
+          <Route path="/loan/add" element={<AddReturnLoan />} />
+          <Route path="/loan/return/:id" element={<AddReturnLoan />} />
           <Route path="kardex/list" element={<KardexsList />}/>
           <Route path="*" element={<NotFound />} />
         </Routes>

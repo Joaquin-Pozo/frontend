@@ -16,7 +16,6 @@ import AddIcon from "@mui/icons-material/Add";
 
 const ToolList = () => {
   const [tools, setTools] = useState([]);
-
   const navigate = useNavigate();
 
   const init = () => {
