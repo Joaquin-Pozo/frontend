@@ -10,6 +10,7 @@ import ClientsList from './components/ClientsList'
 import AddEditClient from './components/AddEditClient'
 import LoansList from './components/LoansList'
 import AddReturnLoan from './components/AddReturnLoan'
+import Reports from './components/Reports'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/loan/add" element={<AddReturnLoan />} />
           <Route path="/loan/return/:id" element={<AddReturnLoan />} />
           <Route path="kardex/list" element={<KardexsList />}/>
+          <Route path="reports" element={<Reports />}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

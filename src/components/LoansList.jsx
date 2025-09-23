@@ -32,6 +32,8 @@ const LoansList = () => {
 
   useEffect(() => {
     init();
+    loanService.updateOverdueLoans()
+    .catch(err => console.log("Error actualizando estado atrasado" ,err));
   }, []);
 
   const handleReturn = (id) => {

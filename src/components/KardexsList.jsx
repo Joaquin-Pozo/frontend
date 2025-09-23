@@ -38,12 +38,7 @@ const KardexsList = () => {
       .catch(err => console.error("Error cargando herramientas:", err));
   };
 
-  useEffect(() => {
-    init();
-    loadTools();
-  }, []);
-
-  const handleFilter = () => {
+    const handleFilter = () => {
     kardexService.filter(toolId || null, fromDate || null, toDate || null)
       .then(res => setKardexs(res.data))
       .catch(err => console.error("Error filtrando kardex:", err));
@@ -56,6 +51,11 @@ const KardexsList = () => {
     setToDate("");
     init();
   };
+
+  useEffect(() => {
+    init();
+    loadTools();
+  }, []);
 
   return (
     <Box>

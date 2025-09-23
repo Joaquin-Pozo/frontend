@@ -11,6 +11,7 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import HomeIcon from "@mui/icons-material/Home";
 import HandshakeIcon from '@mui/icons-material/Handshake';
+import DescriptionIcon from '@mui/icons-material/Description';
 import { useNavigate } from "react-router-dom";
 
 export default function Sidemenu({ open, toggleDrawer }) {
@@ -57,6 +58,13 @@ export default function Sidemenu({ open, toggleDrawer }) {
             <HistoryIcon />
           </ListItemIcon>
           <ListItemText primary="Kardex" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("reports")}>
+          <ListItemIcon>
+            <DescriptionIcon />
+          </ListItemIcon>
+          <ListItemText primary="Reports" />
         </ListItemButton>
 
       </List>
