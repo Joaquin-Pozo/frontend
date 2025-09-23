@@ -25,4 +25,9 @@ const getFine = (id) => {
     return httpClient.get(`/api/v1/loans/fine/${id}`);
 }
 
-export default { getAll, get, create, returnLoan, getFine };
+// paga la multa
+const payFine = (data) => {
+    return httpClient.put("api/v1/loans/payFine", data);
+}
+
+export default { getAll, get, create, returnLoan, getFine, payFine };

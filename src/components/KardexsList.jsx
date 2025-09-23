@@ -117,7 +117,7 @@ const KardexsList = () => {
           <TableBody>
             {kardexs.map(k => (
               <TableRow key={k.id}>
-                <TableCell>{k.movementDate ? new Date(k.movementDate).toLocaleString() : ""}</TableCell>
+                <TableCell>{k.movementDate ? new Date(k.movementDate).toLocaleDateString() : ""}</TableCell>
                 <TableCell>{k.tool?.name}</TableCell>
                 <TableCell>{k.type?.name}</TableCell>
                 <TableCell>{k.quantity}</TableCell>

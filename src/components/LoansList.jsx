@@ -11,6 +11,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
+import PaymentIcon from "@mui/icons-material/Payment";
 import AddIcon from "@mui/icons-material/Add";
 
 const LoansList = () => {
@@ -35,6 +36,18 @@ const LoansList = () => {
 
   const handleReturn = (id) => {
     navigate(`/loan/return/${id}`);
+  };
+
+  // función para pagar la multa
+  const handlePayFine = (loan) => {
+    loanService
+      .payFine(loan)
+      .then(() => {
+        init();
+      })
+      .catch((error) => {
+        console.log("Error al pagar multa", error);
+      });
   };
 
   return (
@@ -74,7 +87,9 @@ const LoansList = () => {
                 <TableCell>{l.damaged ? "Sí" : "No"}</TableCell>
                 <TableCell>{l.totalFine ?? "-"}</TableCell>
                 <TableCell>
-                  {l.currentState?.name !== "Completado" && (
+                  {/* Boton para devolver el prestamo */}
+                  {l.currentState?.name !== "Completado" &&
+                  l.currentState?.name !== "Devuelto" && (
                     <Button
                     variant="contained"
                     color="info"
@@ -84,6 +99,19 @@ const LoansList = () => {
                     sx={{ mr: 1 }}
                   >
                     Devolver
+                  </Button>
+                  )}
+                  {/* Boton para pagar multa */}
+                  {l.currentState?.name === "Devuelto" && l.totalFine > 0 && (
+                    <Button
+                    variant="contained"
+                    color="success"
+                    size="small"
+                    onClick={() => handlePayFine(l)}
+                    startIcon={<PaymentIcon />}
+                    sx={{ mr: 1 }}
+                  >
+                    Pagar Multa
                   </Button>
                   )}
                 </TableCell>

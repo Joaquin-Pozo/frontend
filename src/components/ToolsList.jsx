@@ -94,7 +94,8 @@ const ToolList = () => {
                 >
                   Editar
                 </Button>
-                <Button
+                {t.currentState?.name !== "Dada de baja" && (
+                  <Button
                   variant="contained"
                   color="error"
                   size="small"
@@ -103,6 +104,7 @@ const ToolList = () => {
                 >
                   Dar de baja
                 </Button>
+                )}
               </TableCell>
             </TableRow>
           ))}
