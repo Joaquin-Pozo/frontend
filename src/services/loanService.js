@@ -44,13 +44,23 @@ const getActiveLoans = () => {
     return httpClient.get("/api/v1/loans/active-loans");
 }
 
-// ranking de mejores herramientas por fechas
-const getRanking = (fromDate, toDate) => {
-    const params = {};
-    if (fromDate) params.fromDate = fromDate;
-    if (toDate) params.toDate = toDate
-    return httpClient.get("/api/v1/loans/most-loaned-tools", { params });
+// obtiene los prestamos activos por rango de fechas
+const getActiveLoansByDate = (fromDate, toDate) => {
+    const params = {fromDate, toDate};
+    return httpClient.get("/api/v1/loans/active-loans/filter", { params });
+}
+
+// ranking de mejores herramientas por rango de fechas
+const getRankingByDate = (fromDate, toDate) => {
+    const params = {fromDate, toDate};
+    return httpClient.get("/api/v1/loans/most-loaned-tools-by-date", { params });
+}
+
+// ranking de mejores herramientas
+const getRanking = () => {
+    return httpClient.get("/api/v1/loans/most-loaned-tools");
 }
 
 export default { getAll, get, create, returnLoan, getFine, payFine, 
-    updateOverdueLoans, getRanking, getClientswithDelays, getActiveLoans };
+    updateOverdueLoans, getRankingByDate, getRanking, getClientswithDelays, 
+    getActiveLoans, getActiveLoansByDate };

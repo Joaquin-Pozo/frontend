@@ -17,6 +17,8 @@ const Reports = () => {
   const [ranking, setRanking] = useState([]);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
+  const [fromDateLoans, setFromDateLoans] = useState("");
+  const [toDateLoans, setToDateLoans] = useState("");
   const [clientsWithDelays, setClientsWithDelays] = useState([]);
 
   const initActiveLoans = () => {
@@ -39,25 +41,51 @@ const Reports = () => {
 
   };
 
+  const initRankingTools = () => {
+    // carga las herramientas mas solicitadas
+    loanService.getRanking()
+    .then((res) => {
+      console.log("Cargando ranking de herramientas", res.data);
+      setRanking(res.data);
+    })
+    .catch(err => console.error("Error cargando ranking de herramientas", err.data));
+  };
+
   // Lista ranking de las herramientas más prestadas
   const handleRankingFilter = () => {
-    loanService.getRanking(fromDate || null, toDate || null)
+    loanService.getRankingByDate(fromDate, toDate)
       .then((res) => {
-        console.log("Cargando ranking de herramientas", res.data);
+        console.log("Cargando filtro en ranking de herramientas", res.data);
         setRanking(res.data);
       })
-      .catch(err => console.error("Error cargando ranking:", err));
+      .catch(err => console.error("Error filtrando ranking de herramientas", err));
+  };
+
+  const handleLoansFilter = () => {
+    loanService.getActiveLoansByDate(fromDateLoans, toDateLoans)
+    .then((res) => {
+      console.log("Cargando préstamos activos filtrados", res.data);
+      setActiveLoans(res.data);
+    })
+    .catch(err => console.error("Error filtrando préstamos activos", err));
   };
 
   const handleClearRanking = () => {
     setFromDate("");
     setToDate("");
-    setRanking([]);
+    initRankingTools();
+  };
+
+  const handleClearLoans = () => {
+    setFromDateLoans("");
+    setToDateLoans("");
+    initActiveLoans();
   };
 
   useEffect(() => {
     initActiveLoans();
     initDelayedClients();
+    initRankingTools();
   }, []);
 
   return (
@@ -66,6 +94,34 @@ const Reports = () => {
 
       {/* --- Sección 1: Préstamos activos --- */}
       <h4>Préstamos Activos</h4>
+
+      <Box display="flex" gap={2} mb={2}>
+        <TextField
+          label="Desde"
+          type="date"
+          InputLabelProps={{ shrink: true }}
+          value={fromDateLoans}
+          onChange={(e) => setFromDateLoans(e.target.value)}
+          size="small"
+        />
+
+        <TextField
+          label="Hasta"
+          type="date"
+          InputLabelProps={{ shrink: true }}
+          value={toDateLoans}
+          onChange={(e) => setToDateLoans(e.target.value)}
+          size="small"
+        />
+
+        <Button variant="contained" color="info" onClick={handleLoansFilter}>
+          Filtrar Préstamos
+        </Button>
+        <Button variant="outlined" onClick={handleClearLoans}>
+          Limpiar
+        </Button>
+      </Box>
+
       <TableContainer component={Paper} sx={{ mb: 3 }}>
         <Table size="small">
           <TableHead>
