@@ -68,7 +68,7 @@ const AddReturnLoan = () => {
     }
   }, [id]);
 
-  // Si es devolución deshabilitamos ciertos campos
+  // Si es devolución, se deshabilitan ciertos campos
   const disabledFields = Boolean(id);
 
   return (
@@ -123,7 +123,7 @@ const AddReturnLoan = () => {
       {/* Fechas */}
       <TextField
         id="deliveryDate"
-        label="Fecha Entrega"
+        label="Fecha de entrega"
         type="date"
         value={deliveryDate}
         onChange={(e) => setDeliveryDate(e.target.value)}
@@ -136,7 +136,7 @@ const AddReturnLoan = () => {
 
       <TextField
         id="returnDate"
-        label="Fecha Devolución Pactada"
+        label="Fecha de devolución"
         type="date"
         value={returnDate}
         onChange={(e) => setReturnDate(e.target.value)}

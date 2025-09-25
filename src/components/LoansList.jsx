@@ -22,7 +22,7 @@ const LoansList = () => {
     loanService
       .getAll()
       .then((response) => {
-        console.log("Mostrando listado de todos los préstamos.", response.data);
+        console.log("Mostrando listado de todos los préstamos", response.data);
         setLoans(response.data);
       })
       .catch((error) => {
@@ -30,11 +30,11 @@ const LoansList = () => {
       });
   };
 
-  useEffect(() => {
-    init();
+  const updateOverdueLoans = () => {
     loanService.updateOverdueLoans()
+    .then(response => console.log("Actualizando estado de préstamos atrasados", response.data))
     .catch(err => console.log("Error actualizando estado atrasado" ,err));
-  }, []);
+  }
 
   const handleReturn = (id) => {
     navigate(`/loan/return/${id}`);
@@ -51,6 +51,11 @@ const LoansList = () => {
         console.log("Error al pagar multa", error);
       });
   };
+
+    useEffect(() => {
+    init();
+    updateOverdueLoans();
+  }, []);
 
   return (
     <Box>
@@ -71,8 +76,8 @@ const LoansList = () => {
               <TableCell sx={{ fontWeight: "bold" }}>Cliente</TableCell>
               <TableCell sx={{ fontWeight: "bold" }}>Herramienta</TableCell>
               <TableCell sx={{ fontWeight: "bold" }}>Estado</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Entrega</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Devolución pactada</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Fecha de entrega</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Fecha de devolución</TableCell>
               <TableCell sx={{ fontWeight: "bold" }}>Dañada</TableCell>
               <TableCell sx={{ fontWeight: "bold" }}>Multa Total</TableCell>
               <TableCell sx={{ fontWeight: "bold" }}>Operaciones</TableCell>
@@ -84,8 +89,8 @@ const LoansList = () => {
                 <TableCell>{l.client?.name}</TableCell>
                 <TableCell>{l.tool?.name}</TableCell>
                 <TableCell>{l.currentState?.name}</TableCell>
-                <TableCell>{new Date(l.deliveryDate).toLocaleDateString()}</TableCell>
-                <TableCell>{new Date(l.returnDate).toLocaleDateString()}</TableCell>
+                <TableCell>{l.deliveryDate}</TableCell>
+                <TableCell>{l.returnDate}</TableCell>
                 <TableCell>{l.damaged ? "Sí" : "No"}</TableCell>
                 <TableCell>{l.totalFine ?? "-"}</TableCell>
                 <TableCell>

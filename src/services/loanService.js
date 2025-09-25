@@ -34,6 +34,15 @@ const payFine = (data) => {
 const updateOverdueLoans = () => {
     return httpClient.post("/api/v1/loans/update-overdue", null);
 }
+// obtiene a los clientes con prestamos atrasados
+const getClientswithDelays = () => {
+    return httpClient.get("/api/v1/loans/clients-with-delays");
+}
+
+// obtiene los prestamos activos
+const getActiveLoans = () => {
+    return httpClient.get("/api/v1/loans/active-loans");
+}
 
 // ranking de mejores herramientas por fechas
 const getRanking = (fromDate, toDate) => {
@@ -43,4 +52,5 @@ const getRanking = (fromDate, toDate) => {
     return httpClient.get("/api/v1/loans/most-loaned-tools", { params });
 }
 
-export default { getAll, get, create, returnLoan, getFine, payFine, updateOverdueLoans, getRanking };
+export default { getAll, get, create, returnLoan, getFine, payFine, 
+    updateOverdueLoans, getRanking, getClientswithDelays, getActiveLoans };

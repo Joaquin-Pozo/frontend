@@ -148,7 +148,6 @@ const AddEditTool = () => {
             style={{width: "10%"}}
             required
           >
-            {/* 🔽 Puedes mapear los estados desde backend en un futuro */}
             <MenuItem value={1}>Disponible</MenuItem>
             <MenuItem value={2}>Prestada</MenuItem>
             <MenuItem value={3}>En reparación</MenuItem>

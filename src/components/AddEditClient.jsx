@@ -76,7 +76,6 @@ const AddEditClient = () => {
         onChange={handleChange}
         required
       >
-        {/* 🔽 Estados codificados fijo como AddEditTool */}
         <MenuItem value={1}>Activo</MenuItem>
         <MenuItem value={2}>Restringido</MenuItem>
       </TextField>

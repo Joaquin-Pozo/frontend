@@ -13,25 +13,37 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 
 const Reports = () => {
-  const [loans, setLoans] = useState([]);
+  const [activeLoans, setActiveLoans] = useState([]);
   const [ranking, setRanking] = useState([]);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
+  const [clientsWithDelays, setClientsWithDelays] = useState([]);
 
-  const initLoans = () => {
-    loanService.getAll()
+  const initActiveLoans = () => {
+    // carga los prestamos (en proceso o atrasados)
+    loanService.getActiveLoans()
       .then((res) => {
-        console.log("Cargando todos los préstamos para reportes.", res.data);
-        setLoans(res.data);
+        console.log("Cargando todos los préstamos activos", res.data);
+        setActiveLoans(res.data);
       })
       .catch(err => console.error("Error cargando préstamos:", err));
+  };
+  const initDelayedClients = () => {
+    // carga a los clientes con atrasos
+    loanService.getClientswithDelays()
+    .then((res) => {
+      console.log("Cargando clientes con atrasos", res.data);
+      setClientsWithDelays(res.data);
+    })
+    .catch(err => console.error("Error cargando clientes con atrassos" ,err));
+
   };
 
   // Lista ranking de las herramientas más prestadas
   const handleRankingFilter = () => {
     loanService.getRanking(fromDate || null, toDate || null)
       .then((res) => {
-        console.log("Cargando ranking de herramientas.", res.data);
+        console.log("Cargando ranking de herramientas", res.data);
         setRanking(res.data);
       })
       .catch(err => console.error("Error cargando ranking:", err));
@@ -43,22 +55,9 @@ const Reports = () => {
     setRanking([]);
   };
 
-   // Lista préstamos activos y su estado
-  const activeLoans = loans.filter(l =>
-    l.currentState?.name === "En progreso" || l.currentState?.name === "Atrasado"
-  );
-
-  // Lista clientes conm atrasos
-  const clientsWithDelays = Array.from(
-    new Map(
-      loans
-        .filter(l => l.currentState?.name === "Atrasado")
-        .map(l => [l.client?.id, l.client]) // map para unique
-    ).values()
-  );
-
   useEffect(() => {
-    initLoans();
+    initActiveLoans();
+    initDelayedClients();
   }, []);
 
   return (
@@ -66,7 +65,7 @@ const Reports = () => {
       <h3>Reportes</h3>
 
       {/* --- Sección 1: Préstamos activos --- */}
-      <h4>Préstamos Activos (En progreso / Atrasado)</h4>
+      <h4>Préstamos Activos</h4>
       <TableContainer component={Paper} sx={{ mb: 3 }}>
         <Table size="small">
           <TableHead>
@@ -74,8 +73,8 @@ const Reports = () => {
               <TableCell sx={{ fontWeight: "bold" }}>Cliente</TableCell>
               <TableCell sx={{ fontWeight: "bold" }}>Herramienta</TableCell>
               <TableCell sx={{ fontWeight: "bold" }}>Estado</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Entrega</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Devolución pactada</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Fecha de entrega</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Fecha de devolución</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -84,8 +83,8 @@ const Reports = () => {
                 <TableCell>{l.client?.name}</TableCell>
                 <TableCell>{l.tool?.name}</TableCell>
                 <TableCell>{l.currentState?.name}</TableCell>
-                <TableCell>{new Date(l.deliveryDate).toLocaleDateString()}</TableCell>
-                <TableCell>{new Date(l.returnDate).toLocaleDateString()}</TableCell>
+                <TableCell>{l.deliveryDate}</TableCell>
+                <TableCell>{l.returnDate}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -112,7 +111,7 @@ const Reports = () => {
       </TableContainer>
 
       {/* --- Sección 3: Ranking herramientas --- */}
-      <h4>Ranking de Herramientas más Prestadas</h4>
+      <h4>Ranking de las Herramientas más Prestadas</h4>
 
       <Box display="flex" gap={2} mb={2}>
         <TextField

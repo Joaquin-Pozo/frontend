@@ -23,16 +23,16 @@ const KardexsList = () => {
   const init = () => {
     kardexService.getAll()
       .then((res) => {
-        console.log("Mostrando listado de movimientos del kardex.", res.data);
+        console.log("Mostrando listado de movimientos del kardex", res.data);
         setKardexs(res.data);
       })
-      .catch(err => console.error("Error cargando los movimientos del kardex", err));
+      .catch(err => console.error("Error cargando los movimientos del kardex:", err));
   };
 
   const loadTools = () => {
     toolService.getAll()
       .then((res) => {
-        console.log("Mostrando listado de movimiento de herramientas.", res.data);
+        console.log("Mostrando listado de movimiento de herramientas", res.data);
         setTools(res.data);
       })
       .catch(err => console.error("Error cargando herramientas:", err));
@@ -117,7 +117,7 @@ const KardexsList = () => {
           <TableBody>
             {kardexs.map(k => (
               <TableRow key={k.id}>
-                <TableCell>{k.movementDate ? new Date(k.movementDate).toLocaleDateString() : ""}</TableCell>
+                <TableCell>{k.movementDate}</TableCell>
                 <TableCell>{k.tool?.name}</TableCell>
                 <TableCell>{k.type?.name}</TableCell>
                 <TableCell>{k.quantity}</TableCell>
