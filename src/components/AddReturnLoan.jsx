@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import loanService from "../services/loanService";
 import clientService from "../services/clientService";
 import toolService from "../services/toolService";
+import ErrorPopup from "../components/ErrorPopup";
 import { Box, TextField, Button, FormControl, MenuItem, InputLabel, Select } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 
@@ -10,6 +11,8 @@ const AddReturnLoan = () => {
 
   const [clients, setClients] = useState([]);
   const [tools, setTools] = useState([]);
+  const [openError, setOpenError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [clientId, setClientId] = useState("");
   const [toolId, setToolId] = useState("");
@@ -23,7 +26,7 @@ const AddReturnLoan = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
 
-  const saveLoan = (e) => {
+  const saveLoan = async (e) => {
     e.preventDefault();
 
     const loan = {
@@ -37,13 +40,23 @@ const AddReturnLoan = () => {
       totalFine,
     };
 
-    if (id) {
+    try {
+      if (id) {
       // Devuelve un préstamo
       loanService.returnLoan(loan).then(() => navigate("/loan/list"));
     } else {
       // Registra un nuevo préstamo
-      loanService.create(loan).then(() => navigate("/loan/list"));
+      await loanService.create(loan).then(() => navigate("/loan/list"));
     }
+    navigate("/loan/list");
+    } catch (error) {
+      console.error("Error en la solicitud: ", error);
+
+      const backendMessage = error.response?.data?.message || "Error al procesar la solicitud.";
+      setErrorMessage(backendMessage);
+      setOpenError(true);
+    }
+
   };
 
   useEffect(() => {
@@ -199,6 +212,12 @@ const AddReturnLoan = () => {
       >
         Guardar
       </Button>
+
+      <ErrorPopup
+        open={openError}
+        message={errorMessage}
+        onClose={() => setOpenError(false)}
+      />
 
       <Link to="/loan/list" style={{ marginTop: "1rem" }}>
         Volver a la Lista
