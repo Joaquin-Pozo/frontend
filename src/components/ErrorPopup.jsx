@@ -4,7 +4,6 @@ const ErrorPopup = ({ open, message, onClose }) => {
   return (
     <Snackbar
       open={open}
-      autoHideDuration={4000}
       onClose={onClose}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
     >
